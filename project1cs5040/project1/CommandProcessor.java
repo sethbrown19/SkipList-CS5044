@@ -1,3 +1,4 @@
+package project1;
 /**
  * The purpose of this class is to parse a text file into its appropriate, line
  * by line commands for the format specified in the project spec.

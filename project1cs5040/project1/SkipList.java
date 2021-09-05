@@ -1,14 +1,15 @@
+package project1;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-
 /**
  * This class implements SkipList data structure and contains an inner SkipNode
  * class which the SkipList will make an array of to store data.
  * 
- * @author CS Staff
+ * @author CS 
  * 
  * @version 2021-08-23
  * @param <K>
@@ -137,7 +138,7 @@ public class SkipList<K extends Comparable<? super K>, V>
         // the KVPair to hold
         private KVPair<K, V> pair;
         // what is this
-        private SkipNode [] forward;
+        private SkipNode[] forward;
         // the number of levels
         private int level;
 
