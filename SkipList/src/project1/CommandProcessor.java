@@ -1,5 +1,7 @@
 package project1;
 
+import java.awt.Rectangle;
+
 /**
  * The purpose of this class is to parse a text file into its appropriate, line
  * by line commands for the format specified in the project specifications.
@@ -38,22 +40,48 @@ public class CommandProcessor {
 	 * @param line a single line from the text file
 	 */
 	public void processor(String line) {
-		if (line.toLowerCase().contains("insert")) {
-			data.insert(null);
+		String[] tempLine = line.trim().split(" ");
+		String command = tempLine[0];
+		String key = "";
+		int x = 0;
+		int y = 0;
+		int w = 0;
+		int h = 0;
+
+		if (tempLine.length > 1) {
+			key = tempLine[1];
+		}
+		if (tempLine.length > 2) {
+			x = Integer.parseInt(tempLine[2]);
+		}
+		if (tempLine.length > 3) {
+			y = Integer.parseInt(tempLine[3]);
+		}
+		if (tempLine.length > 4) {
+			w = Integer.parseInt(tempLine[4]);
+		}
+		if (tempLine.length > 5) {
+			h = Integer.parseInt(tempLine[5]);
+		}
+		Rectangle rect = new Rectangle(x, y, w, h);
+		KVPair<String, Rectangle> pair = new KVPair<>(key, rect);
+
+		if (command.equalsIgnoreCase("insert")) {
+			data.insert(pair);
 			return;
-		} else if (line.toLowerCase().contains("remove")) {
+		} else if (command.equalsIgnoreCase("remove")) {
 			data.remove(line);
 			return;
-		} else if (line.toLowerCase().contains("regionsearch")) {
-			data.regionsearch(0, 0, 0, 0);
+		} else if (command.equalsIgnoreCase("regionsearch")) {
+			data.regionsearch(x, y, w, h);
 			return;
-		} else if (line.toLowerCase().contains("search")) {
+		} else if (command.equalsIgnoreCase("search")) {
 			data.search(line);
 			return;
-		} else if (line.toLowerCase().contains("intersections")) {
+		} else if (command.equalsIgnoreCase("intersections")) {
 			data.intersections();
 			return;
-		} else if (line.toLowerCase().contains("dump")) {
+		} else if (command.equalsIgnoreCase("dump")) {
 			data.dump();
 			return;
 		}
