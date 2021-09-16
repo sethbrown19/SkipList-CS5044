@@ -65,7 +65,25 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	 */
 	@SuppressWarnings("unchecked")
 	public void insert(KVPair<K, V> it) {
-
+		int newLevel = randomLevel(); // New node's level
+		if (newLevel > head.level) { // If new node is deeper
+			adjustHead(newLevel); // adjust the header
+		}
+		// Track end of level
+		SkipNode[] update = (SkipNode[]) Array.newInstance(SkipList.SkipNode.class, head.level + 1);
+		SkipNode x = head; // Start at header node
+		for (int i = head.level; i >= 0; i--) { // Find insert position
+			while ((x.forward[i] != null) && (x.forward[i].element().compareTo(it) < 0)) {
+				x = x.forward[i];
+			}
+			update[i] = x; // Track end at level i
+		}
+		x = new SkipNode(it, newLevel);
+		for (int i = 0; i <= newLevel; i++) { // Splice into list
+			x.forward[i] = update[i].forward[i]; // Who x points to
+			update[i].forward[i] = x; // Who points to x
+		}
+		size++; // Increment dictionary size
 	}
 
 	/**
@@ -76,6 +94,12 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	 */
 	@SuppressWarnings("unchecked")
 	private void adjustHead(int newLevel) {
+		SkipNode temp = head;
+		head = new SkipNode(null, newLevel);
+		for (int i = 0; i <= head.level; i++) {
+			head.forward[i] = temp.forward[i];
+		}
+		head.level = newLevel;
 
 	}
 
@@ -121,9 +145,9 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	/**
 	 * This class implements a SkipNode for the SkipList data structure.
 	 * 
-	 * @author CS Staff
+	 * @author Seth Brown
 	 * 
-	 * @version 2016-01-30
+	 * @version 15 Sep 2021
 	 */
 	private class SkipNode {
 

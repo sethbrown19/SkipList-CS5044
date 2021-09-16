@@ -40,6 +40,7 @@ public class Database {
 	 * @param pair the KVPair to be inserted
 	 */
 	public void insert(KVPair<String, Rectangle> pair) {
+		list.insert(pair);
 		System.out.println("Insert method");
 
 	}
