@@ -21,14 +21,14 @@ public class Database {
 	// a string for the name of the rectangle and then
 	// a rectangle object, these are stored in a KVPair,
 	// see the KVPair class for more information
-	private SkipList<String, Rectangle> list;
+	private SkipList<String, RectangleHelper> list;
 
 	/**
 	 * The constructor for this class initializes a SkipList object with String and
 	 * Rectangle a its parameters.
 	 */
 	public Database() {
-		list = new SkipList<String, Rectangle>();
+		list = new SkipList<>();
 	}
 
 	/**
@@ -39,8 +39,8 @@ public class Database {
 	 * 
 	 * @param pair the KVPair to be inserted
 	 */
-	public void insert(KVPair<String, Rectangle> pair) {
-		if(!pair.getValue().isEmpty()) {
+	public void insert(KVPair<String, RectangleHelper> pair) {
+		if(!pair.getValue().isEmpty() || !pair.getKey().startsWith("r##", 1)){
 			list.insert(pair);
 			System.out.println("Rectangle inserted:  " + pair.toString());
 		}
@@ -61,7 +61,7 @@ public class Database {
 
 	/**
 	 * Removes a rectangle with the specified coordinates if available. If not an
-	 * error message is printed to the c onsole.
+	 * error message is printed to the console.
 	 * 
 	 * @param x x-coordinate of the rectangle to be removed
 	 * @param y x-coordinate of the rectangle to be removed

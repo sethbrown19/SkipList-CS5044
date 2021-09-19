@@ -66,6 +66,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	@SuppressWarnings("unchecked")
 	public void insert(KVPair<K, V> it) {
 		int newLevel = randomLevel(); // New node's level
+		System.out.println(newLevel);
 		if (newLevel > head.level) { // If new node is deeper
 			adjustHead(newLevel); // adjust the header
 		}
@@ -96,7 +97,8 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	private void adjustHead(int newLevel) {
 		SkipNode temp = head;
 		head = new SkipNode(null, newLevel);
-		for (int i = 0; i <= head.level; i++) {
+		for (int i = 0; i < head.level; i++) {
+			System.out.println(head.level);
 			head.forward[i] = temp.forward[i];
 		}
 		head.level = newLevel;

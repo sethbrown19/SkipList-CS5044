@@ -5,4 +5,6 @@
     <fullyQualifiedTypeName name="project1.Rectangle1"/>
     <fullyQualifiedTypeName name="project1.Database"/>
     <fullyQualifiedTypeName name="project1.CommandProcessor"/>
+    <fullyQualifiedTypeName name="project1.KVPair"/>
+    <fullyQualifiedTypeName name="java.awt.Rectangle"/>
 </qualifiedTypeNameHistroy>

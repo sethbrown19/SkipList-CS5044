@@ -1,6 +1,8 @@
 package project1;
 
 import java.awt.Rectangle;
+import java.util.Arrays;
+
 
 /**
  * The purpose of this class is to parse a text file into its appropriate, line
@@ -40,13 +42,17 @@ public class CommandProcessor {
 	 * @param line a single line from the text file
 	 */
 	public void processor(String line) {
-		String[] tempLine = line.trim().split(" ");
+		line = line.replaceAll("\\s{2,}", " ").trim();
+		System.out.println(line);
+		String[] tempLine = line.split(" ");
+		System.out.println(Arrays.toString(tempLine));
 		String command = tempLine[0];
 		String key = "";
 		int x = 0;
 		int y = 0;
 		int w = 0;
 		int h = 0;
+		
 
 		if (tempLine.length > 1) {
 			key = tempLine[1];
@@ -63,8 +69,8 @@ public class CommandProcessor {
 		if (tempLine.length > 5) {
 			h = Integer.parseInt(tempLine[5]);
 		}
-		Rectangle rect = new Rectangle(x, y, w, h);
-		KVPair<String, Rectangle> pair = new KVPair<>(key, rect);
+		RectangleHelper rect = new RectangleHelper(x, y, w, h);
+		KVPair<String, RectangleHelper> pair = new KVPair<>(key, rect);
 
 		if (command.equalsIgnoreCase("insert")) {
 			data.insert(pair);
