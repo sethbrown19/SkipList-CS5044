@@ -1,6 +1,3 @@
-package project1;
-
-import java.awt.Rectangle;
 
 /**
  * This class is responsible for interfacing between the command processor and
@@ -40,13 +37,32 @@ public class Database {
 	 * @param pair the KVPair to be inserted
 	 */
 	public void insert(KVPair<String, RectangleHelper> pair) {
-		if(!pair.getValue().isEmpty() || !pair.getKey().startsWith("r##", 1)){
+		if (!checkKey(pair.getKey()) || !checkValue(pair.getValue())) {
+			System.out.println("Rectangle rejected:  " + pair.toString());
+
+		} else {
 			list.insert(pair);
 			System.out.println("Rectangle inserted:  " + pair.toString());
 		}
-		else {
-			System.out.println("Rectangle rejected:  " + pair.toString());
+	}
+
+	private boolean checkKey(String s) {
+		if (s.charAt(0) != 'r') {
+			return false;
 		}
+		for (int i = 1; i < s.length(); i++) {
+			if (!Character.isDigit(s.charAt(i)))
+				return false;
+		}
+		return true;
+	}
+	
+	private boolean checkValue(RectangleHelper rect) {
+		for (int i = 0; i < rect.toString().length(); i++) {
+			if (rect.toString().charAt(i) < 0)
+				return false;
+		}
+		return true;
 	}
 
 	/**
@@ -56,6 +72,10 @@ public class Database {
 	 * @param name the name of the rectangle to be removed
 	 */
 	public void remove(String name) {
+		
+		
+		if()
+		
 		System.out.println("Remove method for string");
 	}
 

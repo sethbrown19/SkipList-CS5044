@@ -7,4 +7,6 @@
     <fullyQualifiedTypeName name="project1.CommandProcessor"/>
     <fullyQualifiedTypeName name="project1.KVPair"/>
     <fullyQualifiedTypeName name="java.awt.Rectangle"/>
+    <fullyQualifiedTypeName name="org.junit.Before"/>
+    <fullyQualifiedTypeName name="SkipList"/>
 </qualifiedTypeNameHistroy>

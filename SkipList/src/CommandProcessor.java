@@ -1,4 +1,4 @@
-package project1;
+
 
 import java.awt.Rectangle;
 import java.util.Arrays;
@@ -43,9 +43,7 @@ public class CommandProcessor {
 	 */
 	public void processor(String line) {
 		line = line.replaceAll("\\s{2,}", " ").trim();
-		System.out.println(line);
 		String[] tempLine = line.split(" ");
-		System.out.println(Arrays.toString(tempLine));
 		String command = tempLine[0];
 		String key = "";
 		int x = 0;
@@ -71,7 +69,7 @@ public class CommandProcessor {
 		}
 		RectangleHelper rect = new RectangleHelper(x, y, w, h);
 		KVPair<String, RectangleHelper> pair = new KVPair<>(key, rect);
-
+ 
 		if (command.equalsIgnoreCase("insert")) {
 			data.insert(pair);
 			return;

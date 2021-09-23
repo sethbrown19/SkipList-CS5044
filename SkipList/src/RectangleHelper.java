@@ -1,4 +1,4 @@
-package project1;
+
 
 import java.awt.Rectangle;
 
@@ -14,6 +14,9 @@ public class RectangleHelper extends Rectangle {
 		this.y = y;
 		this.height = height;
 		this.width = width;	
+	}
+
+	public <V> RectangleHelper(V value) {
 	}
 
 	@Override
