@@ -49,18 +49,17 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	public ArrayList<KVPair<K, V>> search(K key) {
 		SkipNode x = head;// start at head
 		ArrayList<KVPair<K, V>> pair = null;
-
+		
 		for (int i = head.level; i >= 0; i--) {
 			while ((x.forward[i] != null) && (x.forward[i].element().getKey().compareTo(key) < 0)) {
 				x = x.forward[i];
 			}
-			if ((x != null) && (x.element().getKey().compareTo(key) == 0)) {
+			if (x.element().getKey().compareTo(key) == 0) {
 				pair.add(x.element());
 			}
 		}
-		return pair;
+		return null;
 	}
-	
 
 	/**
 	 * @return the size of the SkipList
@@ -112,13 +111,6 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 			head.forward[i] = temp[i];
 		}
 		head.level = newLevel;
-
-//		SkipNode temp = head;
-//		head = new SkipNode(null, newLevel);
-//		for (int i = 0; i <= head.level; i++) {
-//			head.forward[i] = temp.forward[i];
-//		}
-//		head.level = newLevel;
 	}
 
 	/**
@@ -143,10 +135,11 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 		if (x.element().getKey().compareTo(key) == 0) {
 			rect = x.element().getValue();
 			pair = new KVPair<>(key, rect);
+			System.out.println("remove pair to string" + pair.toString());
 			for (int i = 0; i <= x.level; i++) { // Splice into list
 				update[i].forward[i] = x.forward[i + 1]; // Update array points to who x use to
-				x.forward[i] = x.forward[i--]; // Remove x
 			}
+			x = null;
 		}
 		size--;
 		return pair;

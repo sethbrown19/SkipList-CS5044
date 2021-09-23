@@ -46,21 +46,20 @@ public class Database {
 		}
 	}
 
-	private boolean checkKey(String s) {
-		if (s.charAt(0) != 'r') {
+	private boolean checkKey(String s) { // check if key meets requirements
+		for (int i = 0; i < s.length() - 1; i++) {
+			if (Character.isLetter(s.charAt(0)) && (s.charAt(i + 1) == '_' || Character.isDigit(s.charAt(i + 1))))
+				return true;
+		}
+		return false;
+	}
+
+	private boolean checkValue(RectangleHelper rect) { // check if value is positive and less than 1024
+		if (rect.getX() < 0 || rect.getY() < 0 || rect.getWidth() <= 0 || rect.getHeight() <= 0) {
 			return false;
 		}
-		for (int i = 1; i < s.length(); i++) {
-			if (!Character.isDigit(s.charAt(i)))
-				return false;
-		}
-		return true;
-	}
-	
-	private boolean checkValue(RectangleHelper rect) {
-		for (int i = 0; i < rect.toString().length(); i++) {
-			if (rect.toString().charAt(i) < 0)
-				return false;
+		if ((rect.getX() + rect.getWidth() > 1024) || (rect.getY() + rect.getHeight() > 1024)) {
+			return false;
 		}
 		return true;
 	}
@@ -72,11 +71,8 @@ public class Database {
 	 * @param name the name of the rectangle to be removed
 	 */
 	public void remove(String name) {
-		
-		
-		if()
-		
-		System.out.println("Remove method for string");
+		System.out.println("remove by name method" + list.remove(name));
+		System.out.println(name.toString());
 	}
 
 	/**
@@ -90,7 +86,6 @@ public class Database {
 	 */
 	public void remove(int x, int y, int w, int h) {
 		System.out.println("Remove method for specified coordinates");
-
 	}
 
 	/**
@@ -126,7 +121,7 @@ public class Database {
 	 * @param name name of the Rectangle to be searched for
 	 */
 	public void search(String name) {
-		System.out.println("Search method");
+		System.out.println("search method" + list.search(name));
 
 	}
 

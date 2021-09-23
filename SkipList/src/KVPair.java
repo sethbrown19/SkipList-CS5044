@@ -1,7 +1,5 @@
 
 
-import java.awt.Rectangle;
-
 /**
  * This class holds a generic Key-value pair implementation with the compareTo
  * method from the Comparable class implemented as well. The purpose of this
