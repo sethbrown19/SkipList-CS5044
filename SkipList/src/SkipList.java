@@ -48,8 +48,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	 */
 	public ArrayList<KVPair<K, V>> search(K key) {
 		SkipNode x = head;// start at head
-		ArrayList<KVPair<K, V>> pair = null;
-		
+		ArrayList<KVPair<K, V>> pair = new ArrayList<>();
 		for (int i = head.level; i >= 0; i--) {
 			while ((x.forward[i] != null) && (x.forward[i].element().getKey().compareTo(key) < 0)) {
 				x = x.forward[i];
@@ -58,7 +57,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 				pair.add(x.element());
 			}
 		}
-		return null;
+		return pair;
 	}
 
 	/**
@@ -130,19 +129,21 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 			}
 			update[i] = x; // update array filled with x array
 		}
-		KVPair<K, V> pair = null;
 		V rect = null;
-		if (x.element().getKey().compareTo(key) == 0) {
+		KVPair<K, V> pair = new KVPair<K, V>(key, rect);
+		if (key.compareTo(x.element().getKey()) == 0) {
 			rect = x.element().getValue();
 			pair = new KVPair<>(key, rect);
 			System.out.println("remove pair to string" + pair.toString());
 			for (int i = 0; i <= x.level; i++) { // Splice into list
-				update[i].forward[i] = x.forward[i + 1]; // Update array points to who x use to
+				update[i].forward[i] = x.forward[i]; // Update array points to who x use to
 			}
 			x = null;
+			size--;
+			return pair;
 		}
-		size--;
-		return pair;
+		
+		return null;
 	}
 
 	/**
@@ -159,6 +160,11 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	 * Prints out the SkipList in a human readable format to the console.
 	 */
 	public void dump() {
+		SkipNode x = new SkipNode(null, head.level);
+		for(int i = 0; i <= size(); i++) {
+			System.out.println("Node has depth " + x.level + ", " + "Value" + x.pair);
+		}
+		System.out.println("SkipList size is: " + size());
 
 	}
 

@@ -71,6 +71,10 @@ public class Database {
 	 * @param name the name of the rectangle to be removed
 	 */
 	public void remove(String name) {
+		if (list.remove(name) == null) {
+			System.out.println("Rectangle not removed: " + "(" + name + ")");
+			return;
+		}
 		System.out.println("remove by name method" + list.remove(name));
 		System.out.println(name.toString());
 	}
@@ -121,7 +125,7 @@ public class Database {
 	 * @param name name of the Rectangle to be searched for
 	 */
 	public void search(String name) {
-		System.out.println("search method" + list.search(name));
+		System.out.println("search method " + list.search(name));
 
 	}
 
@@ -131,7 +135,6 @@ public class Database {
 	 * be delegated to the SkipList.
 	 */
 	public void dump() {
-		System.out.println("Dump method");
 		list.dump();
 	}
 

@@ -74,13 +74,13 @@ public class CommandProcessor {
 			data.insert(pair);
 			return;
 		} else if (command.equalsIgnoreCase("remove")) {
-			data.remove(line);
+			data.remove(key);
 			return;
 		} else if (command.equalsIgnoreCase("regionsearch")) {
 			data.regionsearch(x, y, w, h);
 			return;
 		} else if (command.equalsIgnoreCase("search")) {
-			data.search(line);
+			data.search(key);
 			return;
 		} else if (command.equalsIgnoreCase("intersections")) {
 			data.intersections();
