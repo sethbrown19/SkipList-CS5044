@@ -1,42 +1,31 @@
 
-import java.awt.Rectangle;
+import java.awt.*;
 
+/**
+ * This Rectangle Helper class extends the java built in rectangle class. It
+ * uses a formatted toString method to match expected output.
+ * 
+ * @author Seth Brown
+ * @version 25 Sep 2021
+ * @
+ *
+ */
 @SuppressWarnings("serial")
 public class RectangleHelper extends Rectangle {
-	private int x;
-	private int y;
-	private int width;
-	private int height;
 
-	public RectangleHelper(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.height = height;
-		this.width = width;
-	}
 
-	public <V> RectangleHelper(V value) {
-	}
-
-	@Override
-	public String toString() {
-		return x + ", " + y + ", " + width + ", " + height;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public double getWidth() {
-		return width;
-	}
-
-	public double getHeight() {
-		return height;
-	}
+    public RectangleHelper() {
+        super();
+    }
+    /**
+     * The toString used when printing out the dimensions of a rectangle. This
+     * overrides the toString method in awt.Rectangle.
+     * 
+     * @return the toString method in the (x, y, w, h) layout
+     */
+    @Override
+    public String toString() {
+        return (int)getX() + ", " + (int)getY() + ", " + (int)getWidth() + ", " + (int)getHeight();
+    }
 
 }

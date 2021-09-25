@@ -9,4 +9,5 @@
     <fullyQualifiedTypeName name="java.awt.Rectangle"/>
     <fullyQualifiedTypeName name="org.junit.Before"/>
     <fullyQualifiedTypeName name="SkipList"/>
+    <fullyQualifiedTypeName name="KVPair"/>
 </qualifiedTypeNameHistroy>
