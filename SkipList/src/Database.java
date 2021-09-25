@@ -84,9 +84,10 @@ public class Database {
         if (list.remove(name) != null) {
             System.out.println("Rectangle removed: " + list.remove(name)
                 .toString());
-            return;
         }
-        System.out.println("Rectangle not removed: " + "(" + name + ")");
+        else {
+            System.out.println("Rectangle not removed: " + "(" + name + ")");
+        }
     }
 
 

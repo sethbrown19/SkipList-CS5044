@@ -60,9 +60,9 @@ public class SkipList<K extends Comparable<? super K>, V>
                 .compareTo(key) < 0)) {
                 x = x.forward[i];
             }
-            if (x.element().getKey().equals(key)) {
-                pair.add(x.element());
-            }
+// if (x.element().getKey().equals(key)) {
+// pair.add(x.element());
+// }
         }
         return pair;
     }
@@ -143,11 +143,12 @@ public class SkipList<K extends Comparable<? super K>, V>
             SkipList.SkipNode.class, head.level + 1);
         SkipNode x = head; // Start at header node
         for (int i = head.level; i >= 0; i--) { // move forward to find key
-            while ((x.forward[i] != null) && (key.compareTo(x.forward[i]
-                .element().getKey()) > 0)) {
+            while ((x.forward[i] != null) && (x.forward[i].element().getKey()
+                .compareTo(key) <= 0)) {
                 x = x.forward[i];
             }
-            update[i] = x; // update array filled with x array
+            update[i] = x;
+            // update array filled with x array
         }
         if (x.pair == null) {
             return null;
@@ -158,7 +159,6 @@ public class SkipList<K extends Comparable<? super K>, V>
             KVPair<K, V> pair = null;
             rect = x.element().getValue();
             pair = new KVPair<>(key, rect);
-            System.out.println("remove pair to string" + pair.toString());
             for (int i = 0; i <= x.level; i++) { // Splice into list
                 update[i].forward[i] = x.forward[i]; // Update array points to
                                                      // who x use to
@@ -186,12 +186,12 @@ public class SkipList<K extends Comparable<? super K>, V>
      * Prints out the SkipList in a human readable format to the console.
      */
     public void dump() {
-        SkipNode x = new SkipNode(null, head.level);
-        for (int i = 0; i <= size(); i++) {
-            System.out.println("Node has depth " + x.level + ", " + "Value "
-                + x.pair);
-        }
-        System.out.println("SkipList size is: " + size());
+// SkipNode x = new SkipNode(null, head.level);
+// for (int i = 0; i <= size(); i++) {
+// System.out.println("Node has depth " + x.level + ", " + "Value "
+// + x.pair);
+// }
+// System.out.println("SkipList size is: " + size());
     }
 
     /**
