@@ -43,8 +43,9 @@ public class Database {
      *            the KVPair to be inserted
      */
     public void insert(KVPair<String, Rectangle> pair) {
-        if (!checkValueInRange(pair.getValue())) {
-            System.out.println("Rectangle rejected:  " + pair.getValue());
+        if (!checkValueInRange(pair.getValue()) || !checkKey(pair.getKey())
+            || !checkValuePositive(pair.getValue())) {
+            System.out.println("Rectangle rejected:  " + pair.toString());
         }
         else {
             list.insert(pair);
@@ -53,17 +54,16 @@ public class Database {
     }
 
 
-//    private boolean checkKey(String s) { // check if key meets requirements
-//        return Character.isLetter(s.charAt(0));
-//    }!checkKey(pair.getKey()) || !checkValuePositive(pair.getValue())
- 
+    private boolean checkKey(String s) { // check if key meets requirements
+        return Character.isLetter(s.charAt(0));
+    }
 
 
-//    private boolean checkValuePositive(Rectangle rect) { // check if value is
-//                                                         // positive
-//        return rect.getX() > 0 && rect.getY() > 0 && rect.getWidth() >= 0
-//            && rect.getHeight() >= 0;
-//    }
+    private boolean checkValuePositive(Rectangle rect) { // check if value is
+                                                         // positive
+        return rect.getX() >= 0 && rect.getY() >= 0 && (rect.getWidth() > 0
+            && rect.getHeight() > 0);
+    }
 
 
     private boolean checkValueInRange(Rectangle rect) { // check if value is
@@ -71,6 +71,7 @@ public class Database {
         return rect.getX() + rect.getWidth() < 1024 && rect.getY() + rect
             .getHeight() < 1024;
     }
+
 
     /**
      * Removes a rectangle with the name "name" if available. If not an error
@@ -80,12 +81,12 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-        if (list.remove(name) == null) {
-            System.out.println("Rectangle not removed: " + "(" + name + ")");
+        if (list.remove(name) != null) {
+            System.out.println("Rectangle removed: " + list.remove(name)
+                .toString());
             return;
         }
-        System.out.println("remove by name method" + list.remove(name));
-        System.out.println(name.toString());
+        System.out.println("Rectangle not removed: " + "(" + name + ")");
     }
 
 

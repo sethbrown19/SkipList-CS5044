@@ -13,10 +13,14 @@ import java.awt.*;
 @SuppressWarnings("serial")
 public class RectangleHelper extends Rectangle {
 
-
+    /**
+     * Constructor for Rectangle Helper 
+     */
     public RectangleHelper() {
         super();
     }
+
+
     /**
      * The toString used when printing out the dimensions of a rectangle. This
      * overrides the toString method in awt.Rectangle.
@@ -25,7 +29,8 @@ public class RectangleHelper extends Rectangle {
      */
     @Override
     public String toString() {
-        return (int)getX() + ", " + (int)getY() + ", " + (int)getWidth() + ", " + (int)getHeight();
+        return (int)getX() + ", " + (int)getY() + ", " + (int)getWidth() + ", "
+            + (int)getHeight();
     }
 
 }

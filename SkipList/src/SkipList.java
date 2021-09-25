@@ -50,7 +50,7 @@ public class SkipList<K extends Comparable<? super K>, V>
      * 
      * @param key
      *            to be searched for
-     * @returns pair the ArrayList KVPair or null if not found
+     * @return pair the ArrayList KVPair or null if not found
      */
     public ArrayList<KVPair<K, V>> search(K key) {
         SkipNode x = head; // start at head
@@ -60,7 +60,7 @@ public class SkipList<K extends Comparable<? super K>, V>
                 .compareTo(key) < 0)) {
                 x = x.forward[i];
             }
-            if (x.element().getKey().compareTo(key) == 0) {
+            if (x.element().getKey().equals(key)) {
                 pair.add(x.element());
             }
         }
@@ -102,7 +102,6 @@ public class SkipList<K extends Comparable<? super K>, V>
             update[i] = x; // Track end at level i
         }
         x = new SkipNode(it, newLevel);
-        System.out.println("Level of this node " + newLevel);
         for (int i = 0; i <= newLevel; i++) { // Splice into list
             x.forward[i] = update[i].forward[i]; // Who x points to
             update[i].forward[i] = x; // Who points to x
@@ -150,8 +149,11 @@ public class SkipList<K extends Comparable<? super K>, V>
             }
             update[i] = x; // update array filled with x array
         }
+        if (x.pair == null) {
+            return null;
+        }
 
-        if (key != null && key.compareTo(x.element().getKey()) == 0) {
+        if (x.element().getKey().equals(key)) {
             V rect;
             KVPair<K, V> pair = null;
             rect = x.element().getValue();
