@@ -3,6 +3,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import javax.lang.model.element.Element;
 
 /**
  * This class implements SkipList data structure and contains an inner SkipNode
@@ -60,11 +61,17 @@ public class SkipList<K extends Comparable<? super K>, V>
                 .compareTo(key) < 0)) {
                 x = x.forward[i];
             }
-// if (x.element().getKey().equals(key)) {
-// pair.add(x.element());
-// }
+        }
+        x = x.forward[0];
+        for (int i = 0; i <= size(); i++) {
+            if (x != null && x.element().getKey().compareTo(key) == 0) {
+                V rect = x.element().getValue();
+                KVPair<K, V> addedPair = new KVPair<>(key, rect);
+                pair.add(addedPair);
+            }
         }
         return pair;
+
     }
 
 
@@ -105,6 +112,7 @@ public class SkipList<K extends Comparable<? super K>, V>
         for (int i = 0; i <= newLevel; i++) { // Splice into list
             x.forward[i] = update[i].forward[i]; // Who x points to
             update[i].forward[i] = x; // Who points to x
+            
         }
         size++; // Increment dictionary size
     }
@@ -164,6 +172,7 @@ public class SkipList<K extends Comparable<? super K>, V>
                                                      // who x use to
             }
             size--;
+
             return pair;
         }
         return null;
@@ -186,12 +195,15 @@ public class SkipList<K extends Comparable<? super K>, V>
      * Prints out the SkipList in a human readable format to the console.
      */
     public void dump() {
-// SkipNode x = new SkipNode(null, head.level);
-// for (int i = 0; i <= size(); i++) {
-// System.out.println("Node has depth " + x.level + ", " + "Value "
-// + x.pair);
-// }
-// System.out.println("SkipList size is: " + size());
+        SkipNode x = head;
+        x = x.forward[0];
+        while (x != null) {
+            System.out.println("Node has depth " + x.level + ", Value " + x.pair
+                .toString());
+            x = x.forward[0];
+        }
+
+        System.out.println("SkipList size is: " + size());
     }
 
     /**
@@ -262,12 +274,12 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         @Override
         public KVPair<K, V> next() {
-            SkipNode returnNode;
             if (hasNext()) {
-                returnNode = current;
+                KVPair<K, V> returnNode = current.pair;
                 currentIndex = current.forward;
-                return returnNode.pair;
+                return returnNode;
             }
+
             return null;
         }
     }

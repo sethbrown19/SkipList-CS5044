@@ -82,11 +82,12 @@ public class Database {
      */
     public void remove(String name) {
         if (list.remove(name) != null) {
-            System.out.println("Rectangle removed: " + list.remove(name)
-                .toString());
+            System.out.println("Rectangle removed: " + name);
+            System.out.println("size " + list.size());
         }
         else {
             System.out.println("Rectangle not removed: " + "(" + name + ")");
+            System.out.println("size " + list.size());
         }
     }
 
