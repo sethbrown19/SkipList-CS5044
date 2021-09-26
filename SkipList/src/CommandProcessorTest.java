@@ -1,4 +1,3 @@
-
 import student.TestCase;
 
 /**
@@ -35,10 +34,15 @@ public class CommandProcessorTest extends TestCase {
      * Test remove method call in command processor.
      */
     public void testProcessorRemove() {
-        String line = "Remove";
+        String line = "insert r2 15 3 5 19";
+        String line2 = "insert r2 15 3 5 19";
+        String remove = "remove r2";
         processor.processor(line);
+        processor.processor(line2);
+        processor.processor(remove);
 
-        assertFuzzyEquals("Remove method for string", systemOut().getHistory());
+        assertFuzzyEquals("Rectangle removed: (r2, 15, 3, 5, 19)", systemOut()
+            .getHistory());
     }
 
 
@@ -57,10 +61,23 @@ public class CommandProcessorTest extends TestCase {
      * Test search method call in command processor.
      */
     public void testProcessorSearch() {
-        String line = "search";
-        processor.processor(line);
+        String insert = "insert r14 15 15 30 30 ";
+        String insert15 = "insert r15 14 14 30 30 ";
+        String insert16 = "insert r16 16 16 30 30 ";
+        String insert17 = "insert r17 17 17 30 30 ";
+        String search1 = "search   r14  ";
+        String search = "search r18";
+        processor.processor(insert);
+        processor.processor(insert15);
+        processor.processor(insert16);
+        processor.processor(insert17);
 
-        assertFuzzyEquals("Search method", systemOut().getHistory());
+        processor.processor(search1);
+        assertFuzzyEquals("Rectangles found: [(r14, 15, 15, 30, 30)]",
+            systemOut().getHistory());
+
+        processor.processor(search);
+        assertFuzzyEquals("search method []", systemOut().getHistory());
     }
 
 
@@ -79,10 +96,28 @@ public class CommandProcessorTest extends TestCase {
      * Test dump method call in command processor.
      */
     public void testProcessorDump() {
-        String line = "dump";
-        processor.processor(line);
+        String one = "insert r1 10 10 5 5";
+        String two = "insert r3 7 7 10 10";
+        String three = "insert r4 20 25 7 9";
+        String four = "insert r5 6 7 11 9";
+        String five = "insert r14 120 117 93 706";
+        String dump = "dump";
 
-        assertFuzzyEquals("Dump method", systemOut().getHistory());
+        processor.processor(one);
+        processor.processor(two);
+        processor.processor(three);
+        processor.processor(four);
+        processor.processor(five);
+        processor.processor(dump);
+
+        assertFuzzyEquals("SkipList Dump: \n"
+            + "Node has depth 2, Value (null)\n"
+            + "Node has depth 1, Value (r1, 10, 10, 5, 5)\n"
+            + "Node has depth 1, Value (r14, 120, 117, 93, 706)\n"
+            + "Node has depth 2, Value (r3, 7, 7, 10, 10)\n"
+            + "Node has depth 1, Value (r4, 20, 25, 7, 9)\n"
+            + "Node has depth 1, Value (r5, 6, 7, 11, 9)\n"
+            + "SkipList size is: 5", systemOut().getHistory());
     }
 
 

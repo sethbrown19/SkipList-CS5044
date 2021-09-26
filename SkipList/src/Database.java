@@ -81,13 +81,13 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-        if (list.remove(name) != null) {
-            System.out.println("Rectangle removed: " + name);
-            System.out.println("size " + list.size());
+        if (list.remove(name) == null) {
+            System.out.println("Rectangle not removed: " + "(" + name + ")");
+
         }
         else {
-            System.out.println("Rectangle not removed: " + "(" + name + ")");
-            System.out.println("size " + list.size());
+            System.out.println("Rectangle removed: " + list.remove(name)
+                .toString());
         }
     }
 
@@ -154,7 +154,13 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
-        System.out.println("search method " + list.search(name));
+        if (list.search(name) == null) {
+            System.out.println("Rectangles not found: " + name);
+        }
+        else {
+            
+            System.out.println("Rectangles found: " + list.search(name));
+        }
 
     }
 

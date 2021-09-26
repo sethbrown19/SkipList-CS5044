@@ -79,6 +79,23 @@ public class KVPair<K extends Comparable<? super K>, V>
         return this.key.compareTo(pair2.getKey());
     }
 
+    
+    /**
+     * Implements the compareTo method from the Comparable interface. This will
+     * be
+     * used to easily compare two KVPair objects.
+     *
+     * @param pair2
+     *            the KVPair to compare to
+     * @return negative if the invoking KVPair is before pair2, zero if they are
+     *         equal in position and positive if the invoking string is after
+     *         pair2
+     *
+     */
+    @SuppressWarnings("unchecked")
+    public int compareTo1(KVPair<K, V> pair3) {
+        return ((KVPair<K, V>)this.value).compareTo1((KVPair<K, V>)pair3.getValue());
+    }
 
     /**
      * Returns the KVPair in a human readable format.
