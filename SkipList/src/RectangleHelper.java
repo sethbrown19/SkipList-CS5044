@@ -6,15 +6,16 @@ import java.awt.*;
  * uses a formatted toString method to match expected output.
  * 
  * @author Seth Brown
- * @version 25 Sep 2021
- * @
+ * @author 906388237
+ * 
+ * @version 26 Sep 2021
  *
  */
 @SuppressWarnings("serial")
 public class RectangleHelper extends Rectangle {
 
     /**
-     * Constructor for Rectangle Helper 
+     * Constructor for Rectangle Helper
      */
     public RectangleHelper() {
         super();

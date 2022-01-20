@@ -1,10 +1,12 @@
 import student.TestCase;
 
 /**
- * use this class to test the command processor class.
+ * use this class to test the command processor class and its methods.
  * 
  * @author Seth Brown
- * @version 25 Sep 2021
+ * @author 906388237
+ * 
+ * @version 26 Sep 2021
  */
 
 public class CommandProcessorTest extends TestCase {

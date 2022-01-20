@@ -30,8 +30,9 @@ import java.util.Scanner;
  * to the console as specified in the file.
  *
  * @author Seth Brown
+ * @author 906388237
  * 
- * @version 11 Sep 2021
+ * @version 26 Sep 2021
  */
 public class Rectangle1 {
 

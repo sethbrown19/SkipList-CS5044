@@ -8,6 +8,12 @@
     <fullyQualifiedTypeName name="project1.KVPair"/>
     <fullyQualifiedTypeName name="java.awt.Rectangle"/>
     <fullyQualifiedTypeName name="org.junit.Before"/>
-    <fullyQualifiedTypeName name="SkipList"/>
     <fullyQualifiedTypeName name="KVPair"/>
+    <fullyQualifiedTypeName name="SkipList"/>
+    <fullyQualifiedTypeName name="SkipList.SkipListIterator"/>
+    <fullyQualifiedTypeName name="javax.lang.model.element.Element"/>
+    <fullyQualifiedTypeName name="javax.annotation.processing.Processor"/>
+    <fullyQualifiedTypeName name="Rectangle1"/>
+    <fullyQualifiedTypeName name="student.TestableRandom"/>
+    <fullyQualifiedTypeName name="SkipList.SkipNode"/>
 </qualifiedTypeNameHistroy>

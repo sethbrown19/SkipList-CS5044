@@ -6,8 +6,9 @@ import java.awt.Rectangle;
  * by line commands for the format specified in the project specifications.
  * 
  * @author Seth Brown
+ * @author 906388237
  * 
- * @version 11 Sep 2021
+ * @version 26 Sep 2021
  */
 public class CommandProcessor {
 
@@ -48,59 +49,73 @@ public class CommandProcessor {
      *            a single line from the text file
      */
     public void processor(String line) {
-        line = line.replaceAll("\\s{2,}", " ").trim();
-        String[] tempLine = line.split(" ");
-        String command = tempLine[0];
-        String key = "";
-        int x = 0;
-        int y = 0;
-        int w = 0;
-        int h = 0;
-
-        if (tempLine.length > 1) {
-            key = tempLine[1];
-        }
-        if (tempLine.length > 2) {
-            x = Integer.parseInt(tempLine[2]);
-        }
-        if (tempLine.length > 3) {
-            y = Integer.parseInt(tempLine[3]);
-        }
-        if (tempLine.length > 4) {
-            w = Integer.parseInt(tempLine[4]);
-        }
-        if (tempLine.length > 5) {
-            h = Integer.parseInt(tempLine[5]);
-        }
-        Rectangle rect = new RectangleHelper();
-        rect.setRect(x, y, w, h);
-        KVPair<String, Rectangle> pair = new KVPair<>(key, rect);
-
-        if (command.equalsIgnoreCase("insert")) {
-            data.insert(pair);
-            return;
-        }
-        else if (command.equalsIgnoreCase("remove")) {
-            data.remove(key);
-            return;
+        int count = 0;
+        String[] split = line.split("\\s+");
+        
+        switch(split[count]) {
+            case "insert" :
+                count++;
+                String nameInsert = split[count];
+                count++;
+                int xInsert = Integer.parseInt(split[count]);
+                count++;
+                int yInsert = Integer.parseInt(split[count]);
+                count++;
+                int wInsert = Integer.parseInt(split[count]);
+                count++;
+                int hInsert = Integer.parseInt(split[count]);
+                Rectangle rect = new Rectangle (xInsert, yInsert, wInsert, hInsert);
+                KVPair<String, Rectangle> pair1 = new KVPair<String, Rectangle>(nameInsert, rect);
+                data.insert(pair1);
+                break;
+            case "remove":
+                if (split.length == 2) {
+                    count++;
+                    String nameRemove = split[count];
+                    data.remove(nameRemove);
+                    break;
+                }
+                else if (split.length == 5){
+                    count++;
+                    int xRemove = Integer.parseInt(split[count]);
+                    count++;
+                    int yRemove = Integer.parseInt(split[count]);
+                    count++;
+                    int wRemove = Integer.parseInt(split[count]);
+                    count++;
+                    int hRemove = Integer.parseInt(split[count]);
+                    data.remove(xRemove, yRemove, wRemove, hRemove);
+                    break;                 
+                }
+                else break;
+            case "regoinsearch":
+                count++;
+                int xRegionSearch = Integer.parseInt(split[count]);
+                count++;
+                int yRegionSearch = Integer.parseInt(split[count]);
+                count++;
+                int wRegionSearch = Integer.parseInt(split[count]);
+                count++;
+                int hRegionSearch = Integer.parseInt(split[count]);
+                data.regionsearch(xRegionSearch, yRegionSearch, wRegionSearch, hRegionSearch);
+                break;
+            case "intersections":
+                data.intersections();
+                break;
+            case "search":
+                count++;
+                String nameSearch = split[count];
+                data.search(nameSearch);
+                break;
+            case "dump":
+                data.dump();
+                break;
+                default:
+                    // If none of the cases match then this is an unrecognized parameter.
+                    System.out.println("Unrecognized parameter " + split[count]);
+                    break; 
         }
         
-        else if (command.equalsIgnoreCase("regionsearch")) {
-            data.regionsearch(x, y, w, h);
-            return;
-        }
-        else if (command.equalsIgnoreCase("search")) {
-            data.search(key);
-            return;
-        }
-        else if (command.equalsIgnoreCase("intersections")) {
-            data.intersections();
-            return;
-        }
-        else if (command.equalsIgnoreCase("dump")) {
-            data.dump();
-            return;
-        }
-        System.out.println("Not a command. Please input a proper command.");
+        
     }
 }

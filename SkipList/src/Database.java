@@ -1,4 +1,5 @@
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for interfacing between the command processor and
@@ -9,9 +10,10 @@ import java.awt.Rectangle;
  * Many of these methods will simply call the appropriate version of the
  * SkipList method after some preparation.
  * 
- * @author CS Staff
+ * @author Seth Brown
+ * @author 906388237
  * 
- * @version 2021-08-23
+ * @version 26 Sep 2021
  */
 public class Database {
 
@@ -27,7 +29,7 @@ public class Database {
      * Rectangle a its parameters.
      */
     public Database() {
-        list = new SkipList<>();
+        list = new SkipList<String, Rectangle>();
     }
 
 
@@ -43,8 +45,8 @@ public class Database {
      *            the KVPair to be inserted
      */
     public void insert(KVPair<String, Rectangle> pair) {
-        if (!checkValueInRange(pair.getValue()) || !checkKey(pair.getKey())
-            || !checkValuePositive(pair.getValue())) {
+        if (!valueInRange(pair.getValue()) || !checkKey(pair.getKey())
+            || !valuePositive(pair.getValue())) {
             System.out.println("Rectangle rejected:  " + pair.toString());
         }
         else {
@@ -54,20 +56,39 @@ public class Database {
     }
 
 
+    /**
+     * Check if the key has a letter first
+     * 
+     * @param s
+     *            the string to check
+     * @return true if the string has a letter first
+     */
     private boolean checkKey(String s) { // check if key meets requirements
         return Character.isLetter(s.charAt(0));
     }
 
 
-    private boolean checkValuePositive(Rectangle rect) { // check if value is
-                                                         // positive
+    /**
+     * Check if the values input into the rectangles are positive
+     * 
+     * @param rect
+     *            dimensions
+     * @return true if the values are positive
+     */
+    private boolean valuePositive(Rectangle rect) { // check if value is positive
         return rect.getX() >= 0 && rect.getY() >= 0 && (rect.getWidth() > 0
             && rect.getHeight() > 0);
     }
 
-
-    private boolean checkValueInRange(Rectangle rect) { // check if value is
-                                                        // less than 1024
+    /**
+     * 
+     * Check to see if the rectangles values are less than 1024
+     * 
+     * @param rect
+     *            rectangles dimensions to be checked
+     * @return true if the rectangle is less than 1024 from (0, 0) ordinates.
+     */
+    private boolean valueInRange(Rectangle rect) { 
         return rect.getX() + rect.getWidth() < 1024 && rect.getY() + rect
             .getHeight() < 1024;
     }
@@ -81,13 +102,12 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-        if (list.remove(name) == null) {
-            System.out.println("Rectangle not removed: " + "(" + name + ")");
-
+        try {
+            System.out.println("Rectangle removed: " + list.remove(name));
         }
-        else {
-            System.out.println("Rectangle removed: " + list.remove(name)
-                .toString());
+        catch (Exception NullPointerException) {
+            System.out.println("Rectangle not removed: " + "(" + name + ")");
+            // print name if null value
         }
     }
 
@@ -107,7 +127,16 @@ public class Database {
      *            height of the rectangle to be removed
      */
     public void remove(int x, int y, int w, int h) {
-        System.out.println("Remove method for specified coordinates");
+        Rectangle rect = new RectangleHelper();
+        rect.setRect(x, y, w, h);
+        try {
+            System.out.println("Rectangle removed: " + list.removeByValue(rect)
+                .toString());
+        }
+        catch (Exception NullPointerException) {
+            // do nothing if null value
+        }
+
     }
 
 
@@ -129,8 +158,23 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-        System.out.println("Region search method");
-        list.iterator().hasNext();
+        ArrayList<KVPair<String, Rectangle>> pair = new ArrayList<>();
+        Rectangle searchRectangle = new Rectangle(x, y, w, h);
+        if (list.iterator().hasNext()) {
+            KVPair<String, Rectangle> pairToAdd = list.iterator().next();
+            if (pairToAdd != null) {
+                Rectangle rect = pairToAdd.getValue();
+                if (searchRectangle.contains(rect)) {
+                    pair.add(pairToAdd);
+                }
+            }
+        }
+        if (!pair.isEmpty()) {
+            System.out.println("Rectangles intersecting region (" + x + ", " + y
+                + ", " + w + ", " + h + "):");
+            System.out.println(pair);
+        }
+
     }
 
 
@@ -154,14 +198,21 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
-        if (list.search(name) == null) {
+        ArrayList<KVPair<String, Rectangle>> printList =
+            new ArrayList<KVPair<String, Rectangle>>();
+        printList = list.search(name);
+        if (printList == null) {
             System.out.println("Rectangles not found: " + name);
         }
         else {
-            
-            System.out.println("Rectangles found: " + list.search(name));
+            System.out.println("Rectangles found: ");
+            for (KVPair<String, Rectangle> element : printList) {
+                System.out.println("(" + element.getKey() + ", " + element
+                    .getValue().x + ", " + element.getValue().y + ", " + element
+                        .getValue().width + ", " + element.getValue().height
+                    + ")");
+            }
         }
-
     }
 
 
@@ -173,7 +224,6 @@ public class Database {
      * be delegated to the SkipList.
      */
     public void dump() {
-        System.out.println("SkipList Dump: ");
         list.dump();
     }
 
